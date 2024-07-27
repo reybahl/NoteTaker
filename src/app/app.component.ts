@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NotecardComponent } from './notecard/notecard.component';
 import { NewButtonComponent } from './new-button/new-button.component';
+import { DialogOverviewExample } from './dialogform/dialogform.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, NotecardComponent, NewButtonComponent],
+  imports: [RouterOutlet, NavbarComponent, NotecardComponent, NewButtonComponent, DialogOverviewExample],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
