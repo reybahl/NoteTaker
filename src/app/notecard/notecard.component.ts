@@ -4,6 +4,21 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { NgFor } from '@angular/common';
 
+class Note {
+  title: string;
+  date: Date;
+  text: string;
+  constructor(title:string, date:Date, text:string) {
+    this.title = title;
+    this.date = date;
+    this.text = text;
+  }
+
+  getDateString() {
+    return `${this.date.getMonth()}/${this.date.getDay()}/${this.date.getFullYear()}`;
+  }
+};
+
 /**
  * @title Card with multiple sections
  */
@@ -16,4 +31,11 @@ import { NgFor } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotecardComponent {
+  noteList : Note[] = [new Note("hello", new Date(Date.now()), "hello")];
+  ngOnInit() {
+    this.noteList.push(new Note("hehe", new Date(Date.now()), "hehe"));
+  }
+  del(idx: number) {
+    delete this.noteList[idx];
+  }
 }
