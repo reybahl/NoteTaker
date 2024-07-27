@@ -5,6 +5,7 @@ import { CoursesService } from "./courses.service";
 @Component({
     standalone: true,
     selector: 'courses',
+    providers: [CoursesService],
     imports: [NgFor],
     template: `
     <h2>{{title}}</h2>
