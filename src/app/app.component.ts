@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CoursesComponent } from './courses.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NotecardComponent } from './notecard/notecard.component';
+import { NewButtonComponent } from './new-button/new-button.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CoursesComponent, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, NotecardComponent, NewButtonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
