@@ -4,6 +4,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { NgFor } from '@angular/common';
 import { DataService } from '../data.service';
+import {CdkDrag} from '@angular/cdk/drag-drop';
 
 export class Note {
   title: string;
@@ -16,7 +17,7 @@ export class Note {
   }
 
   getDateString() {
-    return `${this.date.getMonth()}/${this.date.getDay()}/${this.date.getFullYear()}`;
+    return `${this.date.getMonth() + 1}/${this.date.getDate()}/${this.date.getFullYear()}`;
   }
 };
 
@@ -28,20 +29,19 @@ export class Note {
   templateUrl: 'notecard.component.html',
   styleUrl: 'notecard.component.css',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatGridListModule, NgFor],
+  imports: [MatCardModule, MatButtonModule, MatGridListModule, NgFor, CdkDrag],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotecardComponent {
   constructor(private sharedService: DataService, private _ngZone: NgZone) {}
 
-  noteList : Note[ ] = [new Note("hello", new Date(Date.now()), "hello")];
+  noteList : Note[ ] = [];
   ngOnInit() {
-    // this.add(new Note("hehe", new Date(Date.now()), "hehe"));
     this.sharedService.data$.subscribe(
       value => (value == null) ? console.log : this.add(value)
     );
 
-    console.log(this.noteList);
+    console.log(this.noteList[0].date.getDate());
   }
   add(newData : Note) {
   

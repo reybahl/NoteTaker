@@ -1,20 +1,22 @@
 <mat-grid-list cols="4">
-    <mat-grid-tile *ngFor="let x of noteList; index as i">
-        <mat-card class="example-card" appearance="outlined">
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{x.title}}</mat-card-title>
-                <mat-card-subtitle>{{x.getDateString()}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    {{x.text}}
-                </p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button>Edit</button>
-                <button mat-button (click)="del(i)">Delete</button>
-            </mat-card-actions>
-        </mat-card>
+    <div cdkDrag *ngFor="let x of noteList; index as i">
+        <mat-grid-tile>
+            <mat-card class="example-card" appearance="outlined">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>{{x.title}}</mat-card-title>
+                    <mat-card-subtitle>{{x.getDateString()}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        {{x.text}}
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>Edit</button>
+                    <button mat-button (click)="del(i)">Delete</button>
+                </mat-card-actions>
+            </mat-card>
     </mat-grid-tile>
+    </div>
 </mat-grid-list>
