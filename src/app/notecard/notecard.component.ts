@@ -37,7 +37,6 @@ export class NotecardComponent {
 
   noteList : Note[ ] = [new Note("First Note", new Date(), "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua")];
   ngOnInit() {
-    this.add(new Note("Note #2", new Date(), "Lorem ipsum dolor sit amet, consectetur adipiscing"));
     this.sharedService.data$.subscribe(
       value => (value == null) ? console.log : this.add(value)
     );
