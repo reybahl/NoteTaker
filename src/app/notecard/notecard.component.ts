@@ -35,8 +35,9 @@ export class Note {
 export class NotecardComponent {
   constructor(private sharedService: DataService, private _ngZone: NgZone) {}
 
-  noteList : Note[ ] = [];
+  noteList : Note[ ] = [new Note("First Note", new Date(), "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua")];
   ngOnInit() {
+    this.add(new Note("Note #2", new Date(), "Lorem ipsum dolor sit amet, consectetur adipiscing"));
     this.sharedService.data$.subscribe(
       value => (value == null) ? console.log : this.add(value)
     );
