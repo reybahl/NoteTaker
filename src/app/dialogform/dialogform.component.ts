@@ -14,6 +14,8 @@ import {
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import { Note, NotecardComponent } from '../notecard/notecard.component';
+import { DataService } from '../data.service';
 
 /**
  * @title Dialog Overview
@@ -57,6 +59,8 @@ export class DialogOverviewExample {
 export class DialogOverviewExampleDialog {
   readonly dialogRef = inject(MatDialogRef<DialogOverviewExampleDialog>);
 
+  constructor(private dataService: DataService) {}
+
   personForm = new FormGroup({
     name: new FormControl("name"),
     note: new FormControl("note")
@@ -66,8 +70,13 @@ export class DialogOverviewExampleDialog {
     this.dialogRef.close();
   }
 
+  sendData(note : Note) {
+    this.dataService.addData(note);
+  }
+
   onSubmit() {
     console.log(this.personForm.value);
+    this.sendData(new Note(this.personForm.value.name ? this.personForm.value.name : "", new Date(), this.personForm.value.note ? this.personForm.value.note : ""))
     this.dialogRef.close();
   }
 
