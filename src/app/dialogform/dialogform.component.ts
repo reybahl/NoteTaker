@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, model, signal} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
@@ -10,13 +10,10 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
 
 /**
  * @title Dialog Overview
@@ -24,26 +21,19 @@ export interface DialogData {
 @Component({
   selector: 'dialog-overview-example',
   templateUrl: 'dialog-overview-example.html',
+  styleUrl: 'dialogform.component.css',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogOverviewExample {
-  readonly animal = signal('');
-  readonly name = signal('');
   readonly dialog = inject(MatDialog);
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: {name: this.name(), animal: this.animal()},
-    });
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      if (result !== undefined) {
-        this.animal.set(result);
-        this.name.set(result);
-      }
     });
   }
 }
@@ -61,15 +51,24 @@ export class DialogOverviewExample {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    ReactiveFormsModule
   ],
 })
 export class DialogOverviewExampleDialog {
   readonly dialogRef = inject(MatDialogRef<DialogOverviewExampleDialog>);
-  readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  readonly name = model(this.data.name);
-  readonly animal = model(this.data.animal);
+
+  personForm = new FormGroup({
+    name: new FormControl("name"),
+    note: new FormControl("note")
+  });
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  onSubmit() {
+    console.log(this.personForm.value);
+    this.dialogRef.close();
+  }
+
 }
